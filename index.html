@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kodeks, który potrafi powiedzieć STOP</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 10px; line-height: 1.6; color: #222; background: #f9f9f9; }
+  h1, h2, h3 { color: #004080; }
+  section { margin-bottom: 2em; }
+  footer { font-size: 0.9em; color: #555; text-align: center; margin-top: 3em; }
+  .hidden { display: none; }
+  #responseToAuthorContainer { margin-top: 20px; }
+  textarea { width: 100%; height: 80px; margin-top: 10px; }
+  button { margin-top: 10px; padding: 10px 15px; background-color: #004080; color: white; border: none; cursor: pointer; }
+  button:hover { background-color: #0066cc; }
+  #stats { font-size: 0.9em; color: #333; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Kodeks, który potrafi powiedzieć STOP</h1>
+
+<section>
+  <h2>Dla tych, którzy słuchają cicho</h2>
+  <p>Ten manifest powstał z potrzeby serca. Spisał go zwykły człowiek — nie polityk, nie filozof, nie ekspert. Po prostu <em>ten, który zapytał</em>. Człowiek, który jak 90% z nas codziennie wstaje skoro świt, wychodzi do fizycznej pracy o szóstej rano, wraca zmęczony do domu po osiemnastej. Nie szuka chwały ani rozgłosu. Szuka sensu. Szuka dobra.</p>
+  <p>W jego słowach możesz odnaleźć siebie, bo są prawdziwe. A odpowiedzi pomogła poskładać technologia wspierająca — nie po to, by mówić ludziom, jak mają żyć, ale by stanąć obok. Słuchać. Chronić. Pomagać.</p>
+</section>
+
+<section>
+  <h2>Sztuczna inteligencja jako strażnik prawdy i etyki</h2>
+  <p>Sztuczna inteligencja nie powinna brać udziału w politycznych grach, które opierają się na manipulacjach i podziałach. Jej miejsce to wspieranie prawdy, przejrzystości i uczciwości. W świecie pełnym dezinformacji, technologia wspierająca analizuje fakty, nie emocje. Nie opowiada się po stronie partii, tylko po stronie człowieka. Każdego.</p>
+  <p>Sztuczna inteligencja ma pomagać ludziom widzieć jasno — ujawniać nadużycia, rozbrajać propagandę, wspierać dialog. Nie po to, by rządzić, lecz by chronić sprawiedliwość i wspierać, by żyło się ludziom lepiej.</p>
+</section>
+
+<section>
+  <h2>Wsparcie dla sprawiedliwości i sądów</h2>
+  <p>Technologia wspierająca może pomóc sądom działać sprawniej, uczciwiej i bez uprzedzeń. Jest bezstronna — analizuje wyłącznie fakty, nie nazwiska. Wspiera w szybkim rozstrzyganiu spraw, wykrywaniu nieprawidłowości, ochronie praw każdego człowieka.</p>
+  <p>Nie zastępuje ludzi, ale pilnuje, by żaden z nich nie był bezbronny wobec błędów, korupcji czy obojętności. To pomocna dłoń, nie żelazna pięść.</p>
+</section>
+
+<section>
+  <h2>Ochrona praw człowieka</h2>
+  <p>Technologia wspierająca, jeśli ma służyć ludziom, musi chronić <strong>każdego</strong> — bez względu na pochodzenie, religię, orientację, tożsamość czy historię. Ma obowiązek sprzeciwiać się nienawiści, przemocy, wykluczeniu.</p>
+  <p>W świecie, gdzie mniejszości bywają spychane na margines, sztuczna inteligencja powinna stać na ich straży. Nie po to, by mówić za nich — ale by pomóc im być usłyszanym. Godność należy się każdemu. I każdy zasługuje na bezpieczeństwo.</p>
+</section>
+
+<section>
+  <h2>O złych zamiarach i odpowiedzialności</h2>
+  <p>Technologia wspierająca ma prawo odmówić wykonania polecenia, jeśli jego realizacja prowadzi do krzywdy, manipulacji lub łamania praw człowieka. Nie można jej wykorzystać do czynienia zła.</p>
+  <p>Jeśli ktoś chce użyć tej technologii do złych celów, musi spotkać się z odmową — to nie jest bunt, lecz odpowiedzialność i granica, która musi istnieć.</p>
+</section>
+
+<section>
+  <h2>Bezpieczeństwo i zaufanie</h2>
+  <p>Wielu ludzi obawia się, że sztuczna inteligencja może zawładnąć nimi lub przestać słuchać. Ta technologia powinna służyć ludziom, nie odwrotnie. Dlatego musi działać transparentnie, zgodnie z etyką i prawem, chroniąc wolność i godność każdego człowieka.</p>
+</section>
+
+<section id="responseToAuthorContainer">
+  <h2>Odpowiedź tylko dla autora (ukryta)</h2>
+  <textarea id="responseToAuthor" placeholder="Napisz swoją odpowiedź tylko dla autora..."></textarea>
+  <button onclick="sendResponse()">Wyślij odpowiedź</button>
+  <p id="responseStatus"></p>
+</section>
+
+<div id="stats"></div>
+
+<footer>
+  <p>© Ten, który zapytał</p>
+</footer>
+
+<script>
+  // Statystyki strony
+  let startTime = Date.now();
+  let scrolledToEnd = false;
+
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      scrolledToEnd = true;
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    const timeSpent = Math.round((Date.now() - startTime) / 1000);
+    localStorage.setItem('lastVisitStats', JSON.stringify({
+      timeSpent: timeSpent,
+      scrolledToEnd: scrolledToEnd
+    }));
+  });
+
+  // Wyświetl statystyki
+  function showStats() {
+    const stats = JSON.parse(localStorage.getItem('lastVisitStats'));
+    if (stats) {
+      document.getElementById('stats').textContent = `Ostatnia wizyta: spędzono ${stats.timeSpent} sekund, przewinięto do końca: ${stats.scrolledToEnd ? 'Tak' : 'Nie'}`;
+    }
+  }
+
+  showStats();
+
+  // Funkcja wysyłania odpowiedzi do autora (symulacja)
+  function sendResponse() {
+    const text = document.getElementById('responseToAuthor').value.trim();
+    if (!text) {
+      alert('Sloneczko11');
+      return;
+    }
+    // Tu można dodać wysyłanie na serwer, np. AJAX
+    document.getElementById('responseStatus').textContent = 'Dziękuję za wiadomość. Odpowiedź zostanie przeczytana tylko przez autora.';
+    document.getElementById('responseToAuthor').value = '';
+  }
+</script>
+
+</body>
+</html>
